@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!-- saved from url=(0083)http://www.cin.ufpe.br/~nivan/teaching/data_vis/fall_2016/material/lecture10_1.html -->
+<html lang="en">
+
+<head>
+  <title>Visualização - Exemplo (Series)</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="deps/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="deps/css/dc.css" />
+</head>
+
+<body>
+
+  <div id="test"></div>
+
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script type="text/javascript" src="deps/crossfilter.js"></script>
+  <script type="text/javascript" src="deps/dc.js"></script>
+  <script type="text/javascript">
+    //Width and height
+    var w = 500;
+    var h = 300;
+
+    //Create SVG element
+    var svg = d3.select("body")
+      .append("svg")
+      .attr("width", w)
+      .attr("height", h);
+
+
+
+    //Load in GeoJSON data
+
+    d3.csv("database.csv", function(csv) {
+
+
+      csv.forEach(function(x) {
+        x["Victim Age"] = +x["Victim Age"];
+      });
+      var cf = crossfilter(csv);
+
+
+      console.log("loaded!!");
+      console.log(cf.size());
+
+
+
+
+      //dimensão da idade da vitma
+
+      var victimAgeDimension = cf.dimension(function(d) {
+        return d["Victim Age"];
+      });
+
+      var ageDifferenceDimension = cf.dimension(function(d) {
+        return d["Perpetrator Age"] - d["Victim Age"];
+      });
+
+      console.log("aaaa!!");
+
+      cf.groupAll().reduceSum(function(d) {
+        return d["Victim Count"];
+      }).value();
+
+
+
+
+
+      console.log(victimAgeDimension.top(5));
+
+      console.log(victimAgeDimension.bottom(5));
+      //filtrando pra excluir valores estranhos
+
+      victimAgeDimension.filter(function(d) {
+        return d > 0 && d < 130
+      });
+
+      console.log(victimAgeDimension.groupAll().reduceCount().value());
+
+      console.log(cf.size());
+      console.log("bef all");
+
+      //console.log(victimAgeDimension.all());
+
+
+      //dimensão do numero de vitmas adicionais
+      var victimCountDimension = cf.dimension(function(d) {
+        return d["Victim Count"];
+      });
+
+      console.log(victimCountDimension.top(10));
+
+      ///grupos
+      //dimensão das armas
+
+      victimAgeDimension.filterAll(); //apagando o filtro antigo
+
+
+
+      var perpetratorSexDimension = cf.dimension(function(d) {
+        return d["Perpetrator Sex"];
+      });
+      perpetratorSexDimension.filter(function(d) {
+        return d == "Male";
+      });
+      var weaponDimension = cf.dimension(function(d) {
+        return d["Weapon"];
+      });
+      var weaponGrouping = weaponDimension.group();
+      weaponGrouping.top(3);
+
+      var vicGroup = victimAgeDimension.group().reduceSum(function(d) {
+        return d["Victim Age"];
+      });
+      console.log(vicGroup);
+      console.log(vicGroup.all());
+
+      //filtro com sexo e depois aplicar top da arma pra ver quantidade
+
+      var chart = dc.barChart("#test");
+
+      //console.log(vicGroup.all());
+
+      chart.width(1200)
+        .height(380)
+        .x(d3.scale.ordinal())
+        .xUnits(dc.units.ordinal)
+        .brushOn(false)
+        .xAxisLabel('Weapon used by men')
+        .yAxisLabel('Quantity')
+        .dimension(weaponDimension)
+        .group(weaponGrouping)
+        .colors("blue");
+
+      chart.render();
+
+
+
+    });
+
+    console.log("end");
+  </script><svg width="1500" height="500"></svg>
+
+</body>
+
+</html>
