@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!-- saved from url=(0083)http://www.cin.ufpe.br/~nivan/teaching/data_vis/fall_2016/material/lecture10_1.html -->
+<html lang="en">
+
+<head>
+	<title>Visualização - Exemplo (Series)</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="deps/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="deps/css/dc.css" />
+</head>
+
+<body>
+
+	<div id="test"></div>
+
+	<script src="https://d3js.org/d3.v3.min.js"></script>
+	<script type="text/javascript" src="deps/crossfilter.js"></script>
+	<script type="text/javascript" src="deps/dc.js"></script>
+	<script type="text/javascript">
+		//Width and height
+		var w = 500;
+		var h = 300;
+
+		//Create SVG element
+		var svg = d3.select("body")
+			.append("svg")
+			.attr("width", w)
+			.attr("height", h);
+
+
+
+		//Load in GeoJSON data
+
+		d3.csv("database.csv", function(csv) {
+
+
+			csv.forEach(function(x) {
+				x["Victim Age"] = +x["Victim Age"];
+			});
+			var cf = crossfilter(csv);
+
+			var victimAgeDimension = cf.dimension(function(d) {
+				return d["Victim Age"];
+			});
+
+			//filtrando pra excluir valores estranhos
+
+			victimAgeDimension.filter(function(d) {
+				return d > 0 && d < 130
+			});
+
+			//apagando o filtro antigo
+
+
+			var stateDimension = cf.dimension(function(d) {
+				return d["State"];
+			})
+
+
+			var weaponDimension = cf.dimension(function(d) {
+				return d["Weapon"];
+			})
+
+			weaponDimension.filter(function(d) {
+				return d = "Rifle";
+			});
+
+			var stateGrouping = stateDimension.group();
+
+			var vicGroup = victimAgeDimension.group().reduceSum(function(d) {
+				return d["Perpetrator Age"];
+			});
+			console.log(vicGroup);
+			console.log(vicGroup.all());
+
+			//filtro com sexo e depois aplicar top da arma pra ver quantidade
+
+			var chart = dc.barChart("#test");
+
+			//console.log(vicGroup.all());
+
+			chart.width(1200)
+				.height(300)
+				.x(d3.scale.ordinal())
+				.xUnits(dc.units.ordinal)
+				.brushOn(false)
+				.xAxisLabel('State')
+				.yAxisLabel('Quantity of rifle crimes')
+				.dimension(stateDimension)
+				.group(stateGrouping)
+				.colors("green");
+
+
+
+			//chart.attr("transform", "translate(200,300)");
+			chart.render();
+			chart.selectAll('g.x text')
+				.attr('transform', 'translate(-10,10) rotate(315)');
+
+
+		});
+
+		console.log("end");
+	</script><svg width="1500" height="500"></svg>
+
+</body>
+
+</html>
