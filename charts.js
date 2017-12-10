@@ -1,5 +1,6 @@
 var mapChart = dc.geoChoroplethChart("#map-chart");;
 var timelineChart = dc.barChart('#timeline-chart');
+var weaponChart = dc.rowChart('#weapon-chart');
 
 var months = {
   "January": "01",
@@ -34,6 +35,18 @@ d3.csv('data/database.csv', function(csv) {
       return d["State"];
     });
     var stateHomicides = states.group().reduceCount();
+    var weaponDimension = homicides.dimension(d => d.Weapon);
+    var weaponGroup = weaponDimension.group().reduceCount();
+
+    weaponChart
+      .width(400)
+      .height(400)
+      .margins({top: 0, right: 50, bottom: 20, left: 70})
+      .x(d3.scale.linear().domain([6,20]))
+      .elasticX(true)
+      .dimension(weaponDimension)
+      .group(weaponGroup)
+      .labelOffsetX(-70);
   
     timelineChart.width(990)
       .height(40)
