@@ -1,6 +1,9 @@
 var mapChart = dc.geoChoroplethChart("#map-chart");;
 var timelineChart = dc.barChart('#timeline-chart');
 var weaponChart = dc.rowChart('#weapon-chart');
+var relashionshipChart = dc.rowChart('#relashionship-chart');
+var killerRaceChart = dc.rowChart('#killerRace-chart');
+var victimRaceChart = dc.rowChart('#victimRace-chart');
 
 var months = {
   "January": "01",
@@ -20,7 +23,7 @@ var months = {
 d3.csv('data/database.csv', function(csv) {
   d3.json("data/us-states.json", function (statesJson) {
     console.log(csv);
-    
+
     var dateFormat = d3.time.format('%m/%Y');
     csv.forEach(function (d) {
       d.dd = dateFormat.parse(months[d.Month] + "/" + d.Year);
@@ -28,16 +31,57 @@ d3.csv('data/database.csv', function(csv) {
     });
     
     var homicides = crossfilter(csv);
-  
+    
     var timelineChartDimension = homicides.dimension(d => d.monthD3);
     var timelineGroup = timelineChartDimension.group().reduceCount();
+    
     var states = homicides.dimension(function (d) {
       return d["State"];
     });
     var stateHomicides = states.group().reduceCount();
+    
     var weaponDimension = homicides.dimension(d => d.Weapon);
     var weaponGroup = weaponDimension.group().reduceCount();
-
+    
+    var relashionshipDimension = homicides.dimension(d=> d.Relationship);
+    var relashionshipGroup = relashionshipDimension.group().reduceCount();
+    
+    var killerRaceDimension = homicides.dimension(d=> d["Perpetrator Race"]);
+    var killerRaceGroup = killerRaceDimension.group().reduceCount();
+    
+    var victimRaceDimension = homicides.dimension(d=> d["Victim Race"]);
+    var victimRaceGroup = victimRaceDimension.group().reduceCount();
+    
+    relashionshipChart
+      .width(400)
+      .height(400)
+      .margins({top: 0, right: 0, bottom: 20, left: 120})
+      .x(d3.scale.linear().domain([6,20]))
+      .elasticX(true)
+      .dimension(relashionshipDimension)
+      .group(relashionshipGroup)
+      .labelOffsetX(-120);
+    
+    killerRaceChart
+      .width(400)
+      .height(400)
+      .margins({top: 0, right: 0, bottom: 20, left: 160})
+      .x(d3.scale.linear().domain([6,20]))
+      .elasticX(true)
+      .dimension(killerRaceDimension)
+      .group(killerRaceGroup)
+      .labelOffsetX(-160);
+    
+    victimRaceChart
+      .width(400)
+      .height(400)
+      .margins({top: 0, right: 0, bottom: 20, left: 160})
+      .x(d3.scale.linear().domain([6,20]))
+      .elasticX(true)
+      .dimension(victimRaceDimension)
+      .group(victimRaceGroup)
+      .labelOffsetX(-160);
+    
     weaponChart
       .width(400)
       .height(400)
@@ -47,7 +91,7 @@ d3.csv('data/database.csv', function(csv) {
       .dimension(weaponDimension)
       .group(weaponGroup)
       .labelOffsetX(-70);
-  
+    
     timelineChart.width(990)
       .height(40)
       .margins({top: 0, right: 50, bottom: 20, left: 40})
@@ -57,10 +101,10 @@ d3.csv('data/database.csv', function(csv) {
       .gap(1)
       .x(d3.time.scale().domain([new Date(1980, 0, 1), new Date(2014, 11, 31)]))
       .alwaysUseRounding(true);
-  
+    
     timelineChart.yAxis().tickFormat(d => "");
     timelineChart.yAxis().tickSize(d => 0);
-
+    
     mapChart.width(990)
       .height(500)
       .dimension(states)
@@ -74,14 +118,14 @@ d3.csv('data/database.csv', function(csv) {
       .valueAccessor(function(kv) {
         return kv.value;
       });
-
+    
     mapChart.on("preRender", function(chart) {
       chart.colorDomain(d3.extent(chart.data(), chart.valueAccessor()));
     });
     mapChart.on("preRedraw", function(chart) {
       chart.colorDomain(d3.extent(chart.data(), chart.valueAccessor()));
     });
-
+    
     dc.renderAll()
   });
 })
