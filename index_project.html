@@ -17,7 +17,29 @@
     <body>
 
 
-      <div class="container">
+    <div class="container">
+
+        <div id="map-chart" class="map-chart"></div>
+
+        <div id="killerGender-chart" class="killerGenderChart"></div>
+
+        <div id="victimGender-chart" class="victimGenderChart"></div>
+
+        <div id="weapon-chart"></div>
+
+        <div id="relashionship-chart"></div>
+
+        <!-- <div id="killerRace-chart"></div>
+
+        <div id="victimRace-chart"></div>
+
+        <div class="col-md-12" id="timeline-chart"></div>
+
+        <div id="solved-chart"></div>
+        <div id="count-chart"></div> -->
+    </div>
+
+      <!-- <div class="container">
 
         <div class="row">
 
@@ -76,13 +98,13 @@
             <div id="solved-chart"></div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-        <div id="count-chart" class = "dc-data-count" style = "float: right">
+        <!-- <div id="count-chart" class = "dc-data-count" style = "float: right">
             <span class = "filter-count"></span> selected out of <span
                class = "total-count"></span> | <a href = "javascript:dc.filterAll();
                dc.renderAll();">Reset All</a>
-        </div>
+        </div> -->
 
         <script src="deps/d3.js"></script>
         <script src="deps/crossfilter.js"></script>
@@ -92,3 +114,28 @@
 
     </body>
 </html>
+
+
+.dc-chart g.row text {fill: black;}
+
+.container .map-chart {
+    margin-left: -400px;
+}
+
+.container .killerGenderChart {
+    margin-top: 80px;
+}
+
+.container .victimGenderChart {
+    margin-top: 160px;
+}
+
+.container .weapon-chart{
+    margin-top: -500px;
+    margin-left: -250px;
+}
+
+.container .relashionship-chart{
+    margin-top: 100px;
+    margin-left: -400px;
+}
