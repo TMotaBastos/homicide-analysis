@@ -16,10 +16,21 @@
         <div id="relashionship-chart"></div>
         <div id="killerRace-chart"></div>
         <div id="victimRace-chart"></div>
+        <div id="killerGender-chart"></div>
+        <div id="victimGender-chart"></div>
+        <div id="solved-chart"></div>
+
+        <div id="count-chart" class = "dc-data-count" style = "float: right">
+            <span class = "filter-count"></span> selected out of <span
+               class = "total-count"></span> | <a href = "javascript:dc.filterAll();
+               dc.renderAll();">Reset All</a>
+        </div>
 
         <script src="deps/d3.js"></script>
         <script src="deps/crossfilter.js"></script>
         <script src="deps/dc.js"></script>
         <script src="charts.js"></script>
+
+
     </body>
 </html>
