@@ -75,6 +75,8 @@ d3.csv('data/database2.csv', function(csv) {
       .group(relashionshipGroup)
       .labelOffsetX(-120);
 
+    relashionshipChart.xAxis().ticks(7);
+
     killerRaceChart
       .width(400)
       .height(400)
@@ -85,6 +87,8 @@ d3.csv('data/database2.csv', function(csv) {
       .group(killerRaceGroup)
       .labelOffsetX(-160);
 
+    killerRaceChart.xAxis().ticks(5);
+
     victimRaceChart
       .width(400)
       .height(400)
@@ -94,6 +98,8 @@ d3.csv('data/database2.csv', function(csv) {
       .dimension(victimRaceDimension)
       .group(victimRaceGroup)
       .labelOffsetX(-160);
+
+    victimRaceChart.xAxis().ticks(4);
 
     weaponChart
       .width(400)
