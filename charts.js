@@ -24,7 +24,7 @@ var months = {
   "December": "12",
 };
 
-d3.csv('data/database.csv', function(csv) {
+d3.csv('data/database2.csv', function(csv) {
   d3.json("data/us-states.json", function (statesJson) {
     console.log(csv);
 
