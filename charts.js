@@ -64,9 +64,6 @@ d3.csv('data/database.csv', function(csv) {
 
     var solvedDimension = homicides.dimension(d=> d["Crime Solved"]);
     var solvedGroup = solvedDimension.group().reduceCount()
-    // resolvedDimension.filter(function(d) {
-    //   return d == "Yes";
-    // });
 
     relashionshipChart
       .width(400)
