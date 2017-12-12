@@ -16,126 +16,97 @@
     </head>
     <body>
 
-
-    <div class="container">
-
-        <div id="map-chart" class="map-chart"></div>
-
-        <div id="killerGender-chart" class="killerGenderChart"></div>
-
-        <div id="victimGender-chart" class="victimGenderChart"></div>
-
-        <div id="weapon-chart"></div>
-
-        <div id="relashionship-chart"></div>
-
-        <!-- <div id="killerRace-chart"></div>
-
-        <div id="victimRace-chart"></div>
-
-        <div class="col-md-12" id="timeline-chart"></div>
-
-        <div id="solved-chart"></div>
-        <div id="count-chart"></div> -->
-    </div>
-
-      <!-- <div class="container">
-
+      <div class="container">
         <div class="row">
-
-          <div class="col-md-6">
+          <div class="col-md-6 offset-md-4">
             <h6>Estado da ocorrência</h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
             <div id="map-chart"></div>
           </div>
+        </div>
 
+        <div class="row">
           <div class="col-md-6">
-
-            <div clas="row">
-              <div class="col-md-3">
-                <h6>Arma do Crime</h6>
-                <div id="weapon-chart"></div>
-              </div>
-              <div class="col-md-3">
-                <h6>Relação entre assassino e vitima</h6>
-                <div id="relashionship-chart"></div>
-              </div>
-            </div>
-
-            <div clas="row">
-              <div class="col-md-3">
-                <h6>Raça do assassino</h6>
-                <div id="killerRace-chart"></div>
-              </div>
-              <div class="col-md-3">
-                <h6>Raça da vitima</h6>
-                <div id="victimRace-chart"></div>
-              </div>
-            </div>
-
+            <h6>Arma do Crime</h6>
           </div>
+          <div class="col-md-6">
+            <h6>Relação entre assassino e vítima</h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div id="weapon-chart"></div>
+          </div>
+          <div class="col-md-6">
+            <div id="relashionship-chart"></div>
+          </div>
+        </div>
 
+        <div class="row">
+          <div class="col-md-6">
+            <h6>Raça do assassino</h6>
+          </div>
+          <div class="col-md-6">
+            <h6>Raça da vítima</h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div id="killerRace-chart"></div>
+          </div>
+          <div class="col-md-6">
+            <div id="victimRace-chart"></div>
+          </div>
         </div>
 
         <div class="row">
           <div class="col-md-12">
             <div id="timeline-chart"></div>
           </div>
-
         </div>
-
 
         <div class="row">
           <div class="col-md-4">
             <h6>Gênero do assassino</h6>
-            <div id="killerGender-chart"></div>
           </div>
           <div class="col-md-4">
             <h6>Gênero da vitima</h6>
-            <div id="victimGender-chart"></div>
           </div>
           <div class="col-md-4">
             <h6>Crime resolvido</h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div id="killerGender-chart"></div>
+          </div>
+          <div class="col-md-4">
+            <div id="victimGender-chart"></div>
+          </div>
+          <div class="col-md-4">
             <div id="solved-chart"></div>
           </div>
         </div>
-      </div> -->
 
-        <!-- <div id="count-chart" class = "dc-data-count" style = "float: right">
-            <span class = "filter-count"></span> selected out of <span
-               class = "total-count"></span> | <a href = "javascript:dc.filterAll();
-               dc.renderAll();">Reset All</a>
-        </div> -->
+        <div class="row">
+          <div class="col-md-6 offset-md-2">
+            <div id="count-chart" class = "dc-data-count" style = "float: right">
+                <span class = "filter-count"></span> selected out of <span
+                    class = "total-count"></span> | <a href = "javascript:dc.filterAll();
+                    dc.renderAll();">Reset All</a>
+            </div>
+          </div>
+        </div>
 
-        <script src="deps/d3.js"></script>
-        <script src="deps/crossfilter.js"></script>
-        <script src="deps/dc.js"></script>
-        <script src="charts.js"></script>
+      </div>
 
+      <script src="deps/d3.js"></script>
+      <script src="deps/crossfilter.js"></script>
+      <script src="deps/dc.js"></script>
+      <script src="charts.js"></script>
 
     </body>
 </html>
-
-
-.dc-chart g.row text {fill: black;}
-
-.container .map-chart {
-    margin-left: -400px;
-}
-
-.container .killerGenderChart {
-    margin-top: 80px;
-}
-
-.container .victimGenderChart {
-    margin-top: 160px;
-}
-
-.container .weapon-chart{
-    margin-top: -500px;
-    margin-left: -250px;
-}
-
-.container .relashionship-chart{
-    margin-top: 100px;
-    margin-left: -400px;
-}

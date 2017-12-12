@@ -107,10 +107,10 @@ d3.csv('data/database2.csv', function(csv) {
 
     var colorScaleSolved = d3.scale.ordinal().range(["#31ce4e", "#f23c3c"]);
     solvedChart
-      .width(400)
-      .height(400)
+      .width(300)
+      .height(300)
       .slicesCap(4)
-      .innerRadius(70)
+      .innerRadius(60)
       .dimension(solvedDimension)
       .group(solvedGroup)
       .drawPaths(true)
@@ -119,10 +119,10 @@ d3.csv('data/database2.csv', function(csv) {
 
     var colorScaleVictim = d3.scale.ordinal().range(["#2f7df9", "#f23c3c", "grey"]);
     victimGenderChart
-      .width(400)
-      .height(400)
+      .width(300)
+      .height(300)
       .slicesCap(4)
-      .innerRadius(70)
+      .innerRadius(60)
       .dimension(victimGenderDimension)
       .group(victimGenderGroup)
       .drawPaths(true)
@@ -131,10 +131,10 @@ d3.csv('data/database2.csv', function(csv) {
 
     var colorScaleKiller = d3.scale.ordinal().range(["#2f7df9", "grey", "#f23c3c"]);
     killerGenderChart
-      .width(400)
-      .height(400)
+      .width(300)
+      .height(300)
       .slicesCap(4)
-      .innerRadius(70)
+      .innerRadius(60)
       .dimension(killerGenderDimension)
       .group(killerGenderGroup)
       .colors(colorScaleKiller)
